@@ -31,7 +31,7 @@ services:
      - discovery-server
     networks:
       - petclinic
-    entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
+    entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=180s","--","java", "org.springframework.boot.loader.JarLauncher"]
     ports:
     - 8081:8081
 
@@ -44,7 +44,7 @@ services:
      - discovery-server
     networks:
       - petclinic
-    entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
+    entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=180s","--","java", "org.springframework.boot.loader.JarLauncher"]
     ports:
      - 8082:8082
 
@@ -57,7 +57,7 @@ services:
      - discovery-server
     networks:
       - petclinic
-    entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
+    entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=180s","--","java", "org.springframework.boot.loader.JarLauncher"]
     ports:
      - 8083:8083
 
@@ -70,7 +70,7 @@ services:
      - discovery-server
     networks:
       - petclinic
-    entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
+    entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=180s","--","java", "org.springframework.boot.loader.JarLauncher"]
     ports:
      - 8080:8080
 
@@ -94,7 +94,7 @@ services:
     depends_on:
      - config-server
      - discovery-server
-    entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
+    entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=180s","--","java", "org.springframework.boot.loader.JarLauncher"]
     ports:
      - 9090:9090
 
