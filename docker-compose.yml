@@ -5,6 +5,8 @@ services:
     image: springcommunity/spring-petclinic-config-server
     container_name: config-server
     mem_limit: 512M
+    networks:
+      - petclinic
     ports:
      - 8888:8888
 
@@ -14,6 +16,8 @@ services:
     mem_limit: 512M
     depends_on:
       - config-server
+    networks:
+      - petclinic
     entrypoint: ["./dockerize","-wait=tcp://config-server:8888","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
     ports:
      - 8761:8761
@@ -25,6 +29,8 @@ services:
     depends_on:
      - config-server
      - discovery-server
+    networks:
+      - petclinic
     entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
     ports:
     - 8081:8081
@@ -36,6 +42,8 @@ services:
     depends_on:
      - config-server
      - discovery-server
+    networks:
+      - petclinic
     entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
     ports:
      - 8082:8082
@@ -47,6 +55,8 @@ services:
     depends_on:
      - config-server
      - discovery-server
+    networks:
+      - petclinic
     entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
     ports:
      - 8083:8083
@@ -58,6 +68,8 @@ services:
     depends_on:
      - config-server
      - discovery-server
+    networks:
+      - petclinic
     entrypoint: ["./dockerize","-wait=tcp://discovery-server:8761","-timeout=60s","--","java", "org.springframework.boot.loader.JarLauncher"]
     ports:
      - 8080:8080
@@ -66,6 +78,8 @@ services:
     image: openzipkin/zipkin
     container_name: tracing-server
     mem_limit: 512M
+    networks:
+      - petclinic
     environment:
     - JAVA_OPTS=-XX:+UnlockExperimentalVMOptions -Djava.security.egd=file:/dev/./urandom
     ports:
@@ -75,6 +89,8 @@ services:
     image: springcommunity/spring-petclinic-admin-server
     container_name: admin-server
     mem_limit: 512M
+    networks:
+      - petclinic
     depends_on:
      - config-server
      - discovery-server
@@ -88,6 +104,8 @@ services:
     build: ./docker/grafana
     container_name: grafana-server
     mem_limit: 256M
+    networks:
+      - petclinic
     ports:
     - 3000:3000
 
@@ -95,5 +113,11 @@ services:
     build: ./docker/prometheus
     container_name: prometheus-server
     mem_limit: 256M
+    networks:
+      - petclinic
     ports:
     - 9091:9090
+
+networks:
+  petclinic:
+    name: spring-petclinic-microservices_default
