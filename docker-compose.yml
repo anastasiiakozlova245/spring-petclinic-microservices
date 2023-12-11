@@ -120,5 +120,4 @@ services:
 
 networks:
   petclinic:
-    name: spring-petclinic-microservices_default
     external: true
